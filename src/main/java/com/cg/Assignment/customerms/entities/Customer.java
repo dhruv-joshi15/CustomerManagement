@@ -1,10 +1,16 @@
 package com.cg.Assignment.customerms.entities;
 
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.cg.Assignment.itemms.entities.Item;
 
 
 @Entity
@@ -14,10 +20,20 @@ public class Customer {
 	@GeneratedValue
 	@Id
 	private Long id;
-    private String name;
+    public Set<Item> getBoughtItems() {
+		return boughtItems;
+	}
+
+	public void setBoughtItems(Set<Item> boughtItems) {
+		this.boughtItems = boughtItems;
+	}
+
+	private String name;
     
     @OneToOne
     Account account;
+    @OneToMany(fetch = FetchType.EAGER)
+    Set<Item>boughtItems;
     
     public Customer() {}
 
